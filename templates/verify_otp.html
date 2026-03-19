@@ -1,0 +1,140 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Enter Verification Code — PodcastAI{% endblock %}
+
+
+
+{% block auth_header_action %}
+<a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Sign In</a>
+{% endblock %}
+
+{% block auth_content %}
+<style>
+  .otp-input {
+    font-size: 1.4rem;
+    letter-spacing: 8px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .otp-input::placeholder {
+    letter-spacing: normal;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #a0aec0;
+  }
+</style>
+<div class="auth-card animate-fade-up">
+    <div class="auth-card-header">
+        <div style="width:56px;height:56px;background:linear-gradient(135deg,#7c3aed,#6d28d9);
+                    border-radius:14px;display:flex;align-items:center;justify-content:center;
+                    margin:0 auto 16px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2>Check Your Email</h2>
+        <p>We sent a 6-digit verification code to your email. Enter it below.</p>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-msg flash-{{ category }} animate-fade-up">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <!-- Countdown Timer -->
+    <div style="text-align:center;margin-bottom:20px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;
+                    background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);
+                    border-radius:8px;padding:8px 16px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="#f59e0b" stroke-width="2"/>
+                <path d="M12 6v6l4 2" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span style="color:#f59e0b;font-size:13px;font-weight:500;">
+                Code expires in <strong id="countdown">05:00</strong>
+            </span>
+        </div>
+    </div>
+
+    <form method="POST" action="/verify-otp" class="auth-form" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="otp">Verification Code</label>
+            <input type="text" name="otp" id="otp"
+                   placeholder="Enter 6-digit code"
+                   maxlength="6"
+                   pattern="[0-9]{6}"
+                   inputmode="numeric"
+                   autocomplete="one-time-code"
+                   required
+                   class="otp-input">
+            <p id="otpError" class="field-error"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-full" id="submitBtn">
+            Verify Code
+        </button>
+    </form>
+
+    <div class="auth-card-footer" style="text-align:center;margin-top:16px;">
+        Didn't receive the code?
+        <a href="{{ url_for('forgot_password') }}" style="color:var(--accent);">Send again</a>
+        &nbsp;·&nbsp;
+        <a href="{{ url_for('login') }}">Back to login</a>
+    </div>
+</div>
+
+<script>
+    // OTP input: auto-format
+    document.getElementById('otp').addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    function validateForm() {
+        const otp = document.getElementById('otp');
+        const otpError = document.getElementById('otpError');
+        otpError.classList.remove('show');
+        otpError.textContent = '';
+
+        if (!otp.value.trim() || otp.value.trim().length !== 6) {
+            otpError.textContent = 'Please enter the 6-digit code from your email.';
+            otpError.classList.add('show');
+            return false;
+        }
+        return true;
+    }
+
+    // Countdown timer — 5 minutes
+    (function() {
+        let totalSeconds = 300;
+        const el = document.getElementById('countdown');
+        const timer = setInterval(function() {
+            totalSeconds--;
+            if (totalSeconds <= 0) {
+                clearInterval(timer);
+                el.textContent = '00:00';
+                el.style.color = '#ef4444';
+                el.closest('div').style.borderColor = 'rgba(239,68,68,.4)';
+                el.closest('div').style.background = 'rgba(239,68,68,.1)';
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Code Expired — Request a New One';
+                return;
+            }
+            const m = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+            const s = String(totalSeconds % 60).padStart(2, '0');
+            el.textContent = m + ':' + s;
+
+            // Turn orange when < 60s
+            if (totalSeconds < 60) {
+                el.style.color = '#ef4444';
+            }
+        }, 1000);
+    })();
+</script>
+{% endblock %}

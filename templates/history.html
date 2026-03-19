@@ -1,0 +1,67 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}History — PodcastAI{% endblock %}
+{% block nav_history %}active{% endblock %}
+
+{% block page_content %}
+<div class="page-hero animate-fade-up">
+    <h1>Analysis History</h1>
+    <p>Browse your previously generated podcast insights.</p>
+</div>
+
+<div class="animate-fade-up delay-100">
+    {% if history %}
+    <div class="history-grid">
+        {% for item in history %}
+        <div class="history-card card card-glass animate-on-scroll">
+            <div class="history-card-thumb">
+                <img src="https://img.youtube.com/vi/{{ item.video_id }}/mqdefault.jpg" alt="Video thumbnail"
+                    onerror="this.parentElement.classList.add('no-thumb')">
+                <div class="history-card-overlay">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </div>
+            </div>
+            <div class="history-card-body">
+                <p class="history-card-date">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    {{ item.viewed_at.strftime('%b %d, %Y at %H:%M') if item.viewed_at else 'Unknown Date' }}
+                </p>
+                <a href="{{ item.video_url }}" class="history-card-url" target="_blank" rel="noopener noreferrer">
+                    {{ item.video_url[:55] }}{% if item.video_url|length > 55 %}...{% endif %}
+                </a>
+                <div class="history-card-actions">
+                    <a href="{{ url_for('home_bp.results', video_id=item.video_id) }}"
+                        class="btn btn-primary btn-sm">View Results</a>
+                    <a href="{{ url_for('home_bp.download_pdf', video_id=item.video_id) }}"
+                        class="btn btn-outline btn-sm" title="Download PDF">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state card card-glass">
+        <div class="empty-state-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </div>
+        <h3>Your library is empty</h3>
+        <p>You haven't analyzed any podcasts yet.</p>
+        <a href="{{ url_for('home_bp.dashboard') }}" class="btn btn-primary">Start Analyzing</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

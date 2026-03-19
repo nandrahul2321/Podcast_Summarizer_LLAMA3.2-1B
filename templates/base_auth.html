@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block body_class %}auth-page{% endblock %}
+
+{% block body %}
+<!-- Animated Background -->
+<div class="auth-bg">
+    <div class="auth-bg-gradient"></div>
+    <div class="auth-bg-orb auth-bg-orb-1"></div>
+    <div class="auth-bg-orb auth-bg-orb-2"></div>
+    <div class="auth-bg-orb auth-bg-orb-3"></div>
+</div>
+
+<!-- Header -->
+<header class="auth-header">
+    <div class="auth-header-inner">
+        <a href="/" class="logo-link animate-fade-up">
+            <div class="logo-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C10.34 2 9 3.34 9 5V12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V5C15 3.34 13.66 2 12 2Z"
+                        fill="white" />
+                    <path
+                        d="M17 12C17 14.76 14.76 17 12 17C9.24 17 7 14.76 7 12H5C5 15.53 7.61 18.43 11 18.93V22H13V18.93C16.39 18.43 19 15.53 19 12H17Z"
+                        fill="white" />
+                </svg>
+            </div>
+            <span class="logo-label">PodcastAI</span>
+        </a>
+        <div class="auth-header-actions animate-fade-up delay-100">
+            {% block auth_header_action %}{% endblock %}
+        </div>
+    </div>
+</header>
+
+<!-- Auth Content -->
+<main class="auth-main">
+    {% block auth_content %}{% endblock %}
+</main>
+{% endblock %}

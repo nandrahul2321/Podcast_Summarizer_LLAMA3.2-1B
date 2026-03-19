@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}PodcastAI — Extract Insights Instantly{% endblock %}
+
+{% block body_class %}landing-page{% endblock %}
+
+{% block body %}
+<!-- Animated Background -->
+<div class="landing-bg">
+    <div class="landing-bg-gradient"></div>
+    <div class="landing-orb landing-orb-1"></div>
+    <div class="landing-orb landing-orb-2"></div>
+</div>
+
+<!-- Header -->
+<header class="landing-header">
+    <div class="landing-header-inner">
+        <a href="/" class="logo-link animate-fade-up">
+            <div class="logo-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 2C10.34 2 9 3.34 9 5V12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V5C15 3.34 13.66 2 12 2Z"
+                        fill="white" />
+                    <path
+                        d="M17 12C17 14.76 14.76 17 12 17C9.24 17 7 14.76 7 12H5C5 15.53 7.61 18.43 11 18.93V22H13V18.93C16.39 18.43 19 15.53 19 12H17Z"
+                        fill="white" />
+                </svg>
+            </div>
+            <span class="logo-label">PodcastAI</span>
+        </a>
+        <nav class="landing-nav animate-fade-up delay-100">
+            <button id="landing-theme-btn" class="btn btn-ghost theme-toggle-btn" onclick="toggleTheme()" title="Toggle Theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="landing-theme-icon-sun" class="theme-icon">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="landing-theme-icon-moon" class="theme-icon" style="display:none;">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+            <a href="#features" class="landing-nav-link">Features</a>
+            <a href="{{ url_for('login') }}" class="btn btn-ghost">Sign In</a>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary">Get Started</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<main class="landing-main">
+    <section class="hero">
+        <div class="hero-badge animate-fade-up">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+            <span>AI-Powered Podcast Intelligence</span>
+        </div>
+        <h1 class="hero-title animate-fade-up delay-100">
+            Unlock the Knowledge<br><span class="hero-gradient-text">Hidden in Podcasts</span>
+        </h1>
+        <p class="hero-subtitle animate-fade-up delay-200">
+            Paste any YouTube podcast link and our advanced NLP engine instantly extracts rich summaries, key takeaways,
+            and emotional sentiment analysis — saving you hours.
+        </p>
+        <div class="hero-actions animate-fade-up delay-300">
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">
+                Start Summarizing Free
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+            <a href="#features" class="btn btn-outline btn-lg">See Features</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                    </svg>
+                </div>
+                <h3>Intelligent Summarization</h3>
+                <p>Hours of audio distilled into concise, structured notes highlighting only the most important
+                    insights.</p>
+            </div>
+
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3>Sentiment & Emotion</h3>
+                <p>Understand the speaker's emotional tone mapped onto easy-to-read gauges and color-coded badges.</p>
+            </div>
+
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <h3>Interactive Q&A</h3>
+                <p>Chat with an AI assistant that answers questions based on the podcast content — no hallucinations.
+                </p>
+            </div>
+
+            <div class="feature-card animate-on-scroll">
+                <div class="feature-icon-wrap">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <h3>Historical Archives</h3>
+                <p>Securely save and retrieve all your previous summaries from your private personal dashboard.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works animate-on-scroll">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Paste a Link</h3>
+                <p>Copy any YouTube podcast or video URL and paste it into the dashboard input.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>AI Analyzes</h3>
+                <p>Our NLP engine transcribes, summarizes, and performs sentiment analysis in minutes.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Get Insights</h3>
+                <p>Access structured summaries, key takeaways, confidence metrics, and interactive Q&A.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section animate-on-scroll">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">2+</span>
+                <span class="stat-label">Hours Saved Per Podcast</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">95%</span>
+                <span class="stat-label">Key Point Retention</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">AI</span>
+                <span class="stat-label">Powered Insights</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">∞</span>
+                <span class="stat-label">Podcasts Supported</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section animate-on-scroll">
+        <div class="cta-card">
+            <h2>Ready to elevate your learning?</h2>
+            <p>Join professionals saving countless hours every week.</p>
+            <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg">Get Started for Free</a>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="landing-footer">
+    <p>&copy; 2026 PodcastAI. Built with intelligence.</p>
+</footer>
+{% endblock %}

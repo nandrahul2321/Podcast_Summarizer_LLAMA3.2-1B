@@ -1,0 +1,86 @@
+{% extends "base_auth.html" %}
+
+{% block title %}Create Account — PodcastAI{% endblock %}
+
+{% block auth_header_action %}
+<a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Sign In</a>
+{% endblock %}
+
+{% block auth_content %}
+<div class="auth-card animate-fade-up">
+    <div class="auth-card-header">
+        <h2>Create an Account</h2>
+        <p>Start extracting insights in seconds</p>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="flash-msg flash-{{ category }} animate-fade-up">
+        <span>{{ message }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/signup" class="auth-form" onsubmit="return validateSignupForm()" autocomplete="off">
+        <!-- hidden field to capture autofill and prevent propagation -->
+        <input type="text" name="prevent_autofill" id="prevent_autofill" style="position:absolute;opacity:0;height:0;" autocomplete="username">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" placeholder="you@example.com" autocomplete="email">
+            <p id="emailError" class="field-error"></p>
+        </div>
+        <div class="form-group">
+            <label for="username">Choose a Username</label>
+            <input type="text" name="username" id="username" placeholder="e.g. alexander" autocomplete="off">
+            <p id="usernameError" class="field-error"></p>
+        </div>
+        <div class="form-group">
+            <label for="password">Choose a Password</label>
+            <input type="password" name="password" id="password" placeholder="••••••••" autocomplete="new-password">
+            <p id="passwordError" class="field-error"></p>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-full">Create Account</button>
+    </form>
+
+    <div class="auth-card-footer">
+        Already have an account? <a href="{{ url_for('login') }}">Sign in</a>
+    </div>
+</div>
+
+<script>
+    function validateSignupForm() {
+        let valid = true;
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const usernameError = document.getElementById("usernameError");
+        const passwordError = document.getElementById("passwordError");
+        usernameError.classList.remove("show");
+        passwordError.classList.remove("show");
+        usernameError.textContent = "";
+        passwordError.textContent = "";
+        const email = document.getElementById("email");
+        const emailError = document.getElementById("emailError");
+        emailError.classList.remove("show");
+        emailError.textContent = "";
+        if (!email.value.trim() || !email.value.includes("@")) {
+            emailError.textContent = "Please enter a valid email address.";
+            emailError.classList.add("show");
+            valid = false;
+        }
+        if (username.value.trim().length < 4) {
+            usernameError.textContent = "Username must be at least 4 characters.";
+            usernameError.classList.add("show");
+            valid = false;
+        }
+        if (password.value.trim().length < 6) {
+            passwordError.textContent = "Password must be at least 6 characters.";
+            passwordError.classList.add("show");
+            valid = false;
+        }
+        return valid;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Chat — PodcastAI{% endblock %}
+{% block nav_dashboard %}active{% endblock %}
+
+{% block page_content %}
+<div class="chat-page">
+    <!-- Back Navigation -->
+    <div class="breadcrumb animate-fade-up">
+        <a href="{{ url_for('home_bp.results', video_id=video_id) }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Back to Results
+        </a>
+    </div>
+
+    <div class="chat-container card card-glass animate-fade-up delay-100" data-video-id="{{ video_id }}">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-header-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Interactive Q&A</h3>
+                    <p class="text-muted-sm">Ask questions about this podcast</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Questions from Topics -->
+        {% if topics and topics|length > 0 %}
+        <div class="suggested-questions" id="suggested-questions">
+            <div class="question-chips">
+                {% for topic in topics %}
+                {% for qa in topic.questions %}
+                <button class="question-chip" onclick="askSuggested(this)" data-question="{{ qa.q }}">
+                    {{ qa.q }}
+                </button>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="chat-window" id="chat-window">
+            <div class="chat-message bot">
+                <div class="chat-msg-avatar bot-avatar">AI</div>
+                <div class="bubble">
+                    I've finished processing this podcast. You can ask me any specific questions about the content!
+                </div>
+            </div>
+            <!-- Chat history will be loaded here -->
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask a question about the podcast..." autocomplete="off">
+            <button id="mic-btn" title="Speak" class="btn btn-ghost">
+                <!-- improved microphone icon -->
+                <svg class="mic-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 1C10.343 1 9 2.343 9 4V12C9 13.657 10.343 15 12 15C13.657 15 15 13.657 15 12V4C15 2.343 13.657 1 12 1Z" />
+                    <path d="M19 10V11C19 14.866 15.866 18 12 18C8.134 18 5 14.866 5 11V10" />
+                    <line x1="12" y1="18" x2="12" y2="23" />
+                </svg>
+                <div class="waveform">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </button>
+            <button id="send-chat-btn" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

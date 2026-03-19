@@ -1,0 +1,198 @@
+
+/* Chapters Section */
+.chapters {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* =========================
+   CHATBOT UI
+========================= */
+
+.chat-section {
+    margin-top: 2.5rem;
+    background: var(--card-bg, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    height: 420px;
+    overflow: hidden;
+}
+
+.chat-title {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+.chat-window {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: #f9fafb;
+}
+
+/* Messages */
+.chat-message {
+    display: flex;
+    margin-bottom: 0.8rem;
+}
+
+.chat-message.bot {
+    justify-content: flex-start;
+}
+
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.chat-message .bubble {
+    max-width: 75%;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Bot bubble */
+.chat-message.bot .bubble {
+    background: #eef2ff;
+    color: #1e293b;
+    border-top-left-radius: 4px;
+}
+
+/* User bubble */
+.chat-message.user .bubble {
+    background: #4f46e5;
+    color: #ffffff;
+    border-top-right-radius: 4px;
+}
+
+/* Input area */
+.chat-input-area {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.8rem;
+    border-top: 1px solid #eee;
+    background: #ffffff;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.chat-input-area input:focus {
+    border-color: #4f46e5;
+}
+
+.chat-input-area button {
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background: #4f46e5;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.chat-input-area button:hover {
+    background: #4338ca;
+}
+
+
+
+
+
+
+.chapters h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.chapters-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.chapter-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    background: var(--background-gray);
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.chapter-item:hover {
+    transform: translateX(4px);
+    background: #E8EFFF;
+}
+
+.chapter-time {
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--primary-blue);
+    background: rgba(78, 127, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.chapter-title {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+/* Enhanced Summary Blocks */
+.summary-block, .takeaways-block, .generic-block {
+    margin-bottom: 1.5rem;
+}
+
+.summary-block h4, .takeaways-block h4 {
+    font-size: 1.1rem;
+    color: var(--primary-blue);
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: 0.25rem;
+    display: inline-block;
+}
+
+.summary-block p {
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+.takeaways-block ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.takeaways-block li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px dotted var(--border-color);
+}
+
+.takeaways-block li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--success-green);
+    font-weight: bold;
+}
+
